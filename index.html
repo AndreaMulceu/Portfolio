@@ -68,9 +68,19 @@
   }
   .brand{font-family:'IBM Plex Mono', monospace; font-size:15px; letter-spacing:0.5px; color:var(--navy);}
   .brand .dot{color:var(--amber);}
+  .nav-right{display:flex; align-items:center; gap:28px;}
   nav ul{list-style:none; display:flex; gap:28px; margin:0; padding:0; font-size:14px;}
   nav a{color:var(--text-dim);}
   nav a:hover{color:var(--navy); text-decoration:none;}
+
+  .lang-switch{
+    display:flex; border:1px solid var(--line-strong); border-radius:4px; overflow:hidden;
+    font-family:'IBM Plex Mono', monospace; font-size:12px;
+  }
+  .lang-switch button{
+    background:var(--bg-panel); border:none; padding:6px 12px; cursor:pointer; color:var(--text-dim);
+  }
+  .lang-switch button.active{background:var(--navy); color:#fff;}
 
   /* ---------- Hero ---------- */
   .hero{
@@ -172,6 +182,26 @@
   .stack-list li{padding:7px 0; border-bottom:1px solid var(--line); color:var(--text-dim); display:flex; justify-content:space-between;}
   .stack-list li b{color:var(--navy); font-weight:500;}
 
+  /* International experience */
+  .globe-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:20px;}
+  .globe-card{
+    background:var(--bg-panel); border:1px solid var(--line); border-radius:8px;
+    padding:24px; position:relative; overflow:hidden;
+    box-shadow:0 1px 3px rgba(18,23,42,0.05);
+  }
+  .globe-card::before{
+    content:''; position:absolute; top:0; left:0; width:4px; height:100%;
+  }
+  .globe-card.au::before{background:#0057b8;}
+  .globe-card.cn::before{background:#c02626;}
+  .globe-card.us::before{background:var(--navy);}
+  .globe-flag{font-size:26px; margin-bottom:10px; display:block;}
+  .globe-card h3{margin:0 0 2px; font-size:16px; color:var(--navy);}
+  .globe-dates{font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--amber); margin-bottom:12px; display:block;}
+  .globe-card p{color:var(--text-dim); font-size:14px; margin:0;}
+  .globe-tags{display:flex; gap:6px; flex-wrap:wrap; margin-top:14px;}
+  .globe-tags span{font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--text-dim); background:var(--bg); border:1px solid var(--line-strong); padding:2px 8px; border-radius:3px;}
+
   /* Projects */
   .project-card{
     border:1px solid var(--line);
@@ -225,8 +255,10 @@
     .hero{grid-template-columns:1fr;}
     .id-card{max-width:320px;}
     .about-grid{grid-template-columns:1fr;}
+    .globe-grid{grid-template-columns:1fr;}
     h1{font-size:32px;}
     nav ul{gap:16px; font-size:13px;}
+    .nav-right{gap:14px;}
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -243,36 +275,43 @@
 <header>
   <nav>
     <div class="brand">ANDREA<span class="dot">·</span>MULCEU</div>
-    <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+    <div class="nav-right">
+      <ul>
+        <li><a href="#about" data-i18n="nav.about">About</a></li>
+        <li><a href="#international" data-i18n="nav.intl">International</a></li>
+        <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+        <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
+        <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+      <div class="lang-switch">
+        <button id="btnEn" class="active" onclick="setLang('en')">EN</button>
+        <button id="btnFr" onclick="setLang('fr')">FR</button>
+      </div>
+    </div>
   </nav>
 </header>
 
 <section class="hero" style="padding-top:20px;">
   <div>
-    <div class="eyebrow">MSc Financial Markets and Investments · SKEMA Business School</div>
-    <h1>I price it, I hedge it,<br>and I document the code.</h1>
-    <p class="lead">
+    <div class="eyebrow" data-i18n="hero.eyebrow">MSc Financial Markets and Investments · SKEMA Business School</div>
+    <h1 data-i18n="hero.title">I price it, I hedge it,<br>and I document the code.</h1>
+    <p class="lead" data-i18n="hero.lead">
       Finance student with hands-on experience in Société Générale's Forex &amp; Money Market Middle Office
       and credit analysis at Banque de France. I build Python tools to understand — and show —
       how the models used on an options desk actually work.
     </p>
     <div class="cta-row">
-      <a href="#projects" class="btn btn-primary">See my projects ↓</a>
-      <a href="https://github.com/AndreaMulceu" class="btn btn-ghost">GitHub ↗</a>
-      <a href="https://linkedin.com/in/andrea-mulceu/" class="btn btn-ghost">LinkedIn ↗</a>
+      <a href="#projects" class="btn btn-primary" data-i18n="hero.cta">See my projects ↓</a>
+      <a href="https://github.com/YOUR-GITHUB-USERNAME" class="btn btn-ghost">GitHub ↗</a>
+      <a href="https://linkedin.com/in/YOUR-LINKEDIN-URL" class="btn btn-ghost">LinkedIn ↗</a>
     </div>
   </div>
 
   <div class="id-card">
-    <img class="id-photo" src="andrea.jpg" alt="Portrait of Andrea Mulceu">
+    <img class="id-photo" src="assets/andrea.jpg" alt="Portrait of Andrea Mulceu">
     <div class="id-caption">
       <div class="name">Andrea Mulceu</div>
-      <div class="role">MSc Financial Markets and Investments</div>
+      <div class="role" data-i18n="hero.role">MSc Financial Markets and Investments</div>
     </div>
     <div class="panel">
       <div class="panel-head">
@@ -280,7 +319,7 @@
         <span id="clock">--:--:--</span>
       </div>
       <div class="panel-price">5.3498</div>
-      <div class="panel-sub">Black-Scholes · 25.0% implied vol</div>
+      <div class="panel-sub" data-i18n="hero.panelSub">Black-Scholes · 25.0% implied vol</div>
       <canvas id="sparkline"></canvas>
       <div class="greeks-row">
         <div><span>Delta</span><b>0.446</b></div>
@@ -293,9 +332,9 @@
 </section>
 
 <section id="about">
-  <div class="section-head"><span class="section-num">01</span><h2>About</h2><hr class="rule"></div>
+  <div class="section-head"><span class="section-num">01</span><h2 data-i18n="about.title">About</h2><hr class="rule"></div>
   <div class="about-grid">
-    <p>
+    <p data-i18n="about.text">
       Currently pursuing an <b style="color:var(--navy)">MSc in Financial Markets and Investments</b> at
       <span style="color:var(--navy)">SKEMA Business School</span> (ranked 2nd worldwide by the Financial Times),
       after a Bachelor's in Corporate Finance &amp; Financial Markets at SKEMA Sophia-Antipolis and an exchange
@@ -311,26 +350,83 @@
       starting <span style="color:var(--navy)">August 2026</span>.
     </p>
     <ul class="stack-list">
-      <li><span>Languages (code)</span><b>Python, VBA, SQL</b></li>
-      <li><span>Quant finance</span><b>Black-Scholes, Monte Carlo, Greeks</b></li>
-      <li><span>Data</span><b>Excel, Power BI, NumPy, Pandas</b></li>
-      <li><span>Finance</span><b>Modelling, valuation (DCF, comparables), credit</b></li>
-      <li><span>Languages</span><b>FR (native), EN (C1), IT (B2), ZH (A2)</b></li>
+      <li><span data-i18n="about.li1k">Languages (code)</span><b>Python, VBA, SQL</b></li>
+      <li><span data-i18n="about.li2k">Quant finance</span><b>Black-Scholes, Monte Carlo, Greeks</b></li>
+      <li><span data-i18n="about.li3k">Data</span><b>Excel, Power BI, NumPy, Pandas</b></li>
+      <li><span data-i18n="about.li4k">Finance</span><b data-i18n="about.li4v">Modelling, valuation (DCF, comparables), credit</b></li>
+      <li><span data-i18n="about.li5k">Languages</span><b data-i18n="about.li5v">FR (native), EN (C1), IT (B2), ZH (A2)</b></li>
     </ul>
   </div>
 </section>
 
+<section id="international">
+  <div class="section-head"><span class="section-num">02</span><h2 data-i18n="intl.title">International Experience</h2><hr class="rule"></div>
+  <p style="color:var(--text-dim); font-size:15.5px; max-width:80ch; margin-top:-14px; margin-bottom:32px;" data-i18n="intl.intro">
+    Three continents, three very different pictures of finance — a contrast I've come to see as one of the
+    more distinctive parts of my profile.
+  </p>
+  <div class="globe-grid">
+    <div class="globe-card au">
+      <span class="globe-flag">🇦🇺</span>
+      <h3 data-i18n="intl.au.title">Australia — Melbourne</h3>
+      <span class="globe-dates">2023</span>
+      <p data-i18n="intl.au.text">
+        Left home young to learn English by immersion. Worked several student jobs — Uber Eats delivery,
+        bartending — before landing an Accounting Assistant internship at TFE Hotel. Learned to be
+        independent fast, and that fluency is built by necessity, not by choice.
+      </p>
+      <div class="globe-tags">
+        <span data-i18n="intl.au.tag1">Independence</span>
+        <span data-i18n="intl.au.tag2">English fluency</span>
+        <span data-i18n="intl.au.tag3">Accounting</span>
+      </div>
+    </div>
+    <div class="globe-card cn">
+      <span class="globe-flag">🇨🇳</span>
+      <h3 data-i18n="intl.cn.title">China — Nanjing</h3>
+      <span class="globe-dates">Jan 2025 – Jan 2026</span>
+      <p data-i18n="intl.cn.text">
+        My best experience abroad. A full exchange year at Nanjing Audit School, taking finance and
+        management courses inside a Chinese university rather than as a visiting observer. It opened
+        a real window onto Asia and gave me a genuine understanding of the culture — enough that I'm
+        now learning Mandarin and seriously considering a future chapter of my career there.
+      </p>
+      <div class="globe-tags">
+        <span data-i18n="intl.cn.tag1">Asia exposure</span>
+        <span data-i18n="intl.cn.tag2">Mandarin (learning)</span>
+        <span data-i18n="intl.cn.tag3">Cultural fluency</span>
+      </div>
+    </div>
+    <div class="globe-card us">
+      <span class="globe-flag">🇺🇸</span>
+      <h3 data-i18n="intl.us.title">United States — Raleigh, NC</h3>
+      <span class="globe-dates">Aug 2027 – Apr 2028</span>
+      <p data-i18n="intl.us.text">
+        The sharpest contrast on my CV. My MSc FMI is delivered at NC State University in partnership
+        with SKEMA — ranked 2nd worldwide by the Financial Times — with a real possibility of a STEM
+        designation. Several networking weekends in New York have already given me a first taste of
+        US capital markets culture.
+      </p>
+      <div class="globe-tags">
+        <span data-i18n="intl.us.tag1">NC State partnership</span>
+        <span data-i18n="intl.us.tag2">STEM-eligible</span>
+        <span data-i18n="intl.us.tag3">NYC networking</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="projects">
-  <div class="section-head"><span class="section-num">02</span><h2>Projects</h2><hr class="rule"></div>
+  <div class="section-head"><span class="section-num">03</span><h2 data-i18n="projects.title">Projects</h2><hr class="rule"></div>
 
   <div class="project-card">
-    <img src="greeks_and_convergence.png" alt="Greeks and pricing model convergence chart">
+    <img src="derivatives-pricing-toolkit/greeks_and_convergence.png" alt="Greeks and pricing model convergence chart">
     <div class="project-body">
       <div class="project-title">
         <h3>Derivatives Pricing Toolkit</h3>
-        <span class="project-tag">PRICING</span>
+        <span class="project-tag" data-i18n="projects.tag1">PRICING</span>
       </div>
-      <p>
+      <p data-i18n="projects.p1">
         Vanilla option pricing library comparing three approaches: Black-Scholes (closed form + analytical
         Greeks), Monte Carlo with variance reduction, and a binomial tree for American-style pricing.
         Includes an implied volatility solver via Newton-Raphson.
@@ -339,28 +435,28 @@
         <span>Python</span><span>NumPy</span><span>SciPy</span><span>Matplotlib</span>
       </div>
       <div class="project-links" style="margin-top:16px;">
-        <a href="https://github.com/AndreaMulceu/derivatives-pricing-toolkit">Source code ↗</a>
+        <a href="https://github.com/YOUR-GITHUB-USERNAME/derivatives-pricing-toolkit" data-i18n="projects.link">Source code ↗</a>
       </div>
     </div>
   </div>
 
   <div class="project-card">
-    <img src="hedging_error.png" alt="Delta hedging error chart">
+    <img src="delta-hedging-simulator/hedging_error.png" alt="Delta hedging error chart">
     <div class="project-body">
       <div class="project-title">
         <h3>Delta-Hedging Simulator</h3>
-        <span class="project-tag">RISK</span>
+        <span class="project-tag" data-i18n="projects.tag2">RISK</span>
       </div>
-      <p>
+      <p data-i18n="projects.p2">
         Vectorized simulation of an option seller's P&amp;L under dynamic delta hedging.
         Quantifies the hedging error (tracking error) as a function of rebalancing frequency,
         and shows the P&amp;L impact of a gap between implied and realized volatility.
       </p>
       <div class="tech-tags">
-        <span>Python</span><span>NumPy</span><span>Monte Carlo simulation</span>
+        <span>Python</span><span>NumPy</span><span data-i18n="projects.tagmc">Monte Carlo simulation</span>
       </div>
       <div class="project-links" style="margin-top:16px;">
-        <a href="https://github.com/AndreaMulceu/delta-hedging-simulator">Source code ↗</a>
+        <a href="https://github.com/YOUR-GITHUB-USERNAME/delta-hedging-simulator" data-i18n="projects.link">Source code ↗</a>
       </div>
     </div>
   </div>
@@ -368,10 +464,10 @@
   <div class="project-card">
     <div class="project-body">
       <div class="project-title">
-        <h3>[Next project]</h3>
-        <span class="project-tag">COMING UP</span>
+        <h3 data-i18n="projects.next.title">[Next project]</h3>
+        <span class="project-tag" data-i18n="projects.next.tag">COMING UP</span>
       </div>
-      <p>
+      <p data-i18n="projects.next.text">
         Natural next steps: calibrating a volatility surface from real market data, pricing barrier options,
         or backtesting a volatility strategy (straddle, strangle).
       </p>
@@ -380,35 +476,35 @@
 </section>
 
 <section id="skills">
-  <div class="section-head"><span class="section-num">03</span><h2>Skills</h2><hr class="rule"></div>
+  <div class="section-head"><span class="section-num">04</span><h2 data-i18n="skills.title">Skills</h2><hr class="rule"></div>
   <table class="blotter">
     <thead>
-      <tr><th>Area</th><th>Detail</th><th>Level</th></tr>
+      <tr><th data-i18n="skills.col1">Area</th><th data-i18n="skills.col2">Detail</th><th data-i18n="skills.col3">Level</th></tr>
     </thead>
     <tbody>
-      <tr><td>FX/MM trading support</td><td>Transaction pricing, real-time Front Office support</td><td><span class="level-bar"><span class="level-fill" style="width:70%"></span></span></td></tr>
-      <tr><td>Derivatives pricing</td><td>Black-Scholes, Monte Carlo, binomial trees</td><td><span class="level-bar"><span class="level-fill" style="width:65%"></span></span></td></tr>
-      <tr><td>Credit analysis</td><td>Solvency, ratings, financial statement review</td><td><span class="level-bar"><span class="level-fill" style="width:70%"></span></span></td></tr>
-      <tr><td>Valuation</td><td>DCF, comparables, financial modelling</td><td><span class="level-bar"><span class="level-fill" style="width:65%"></span></span></td></tr>
-      <tr><td>Python / VBA</td><td>Automation, NumPy, Pandas, SciPy</td><td><span class="level-bar"><span class="level-fill" style="width:65%"></span></span></td></tr>
+      <tr><td data-i18n="skills.r1a">FX/MM trading support</td><td data-i18n="skills.r1b">Transaction pricing, real-time Front Office support</td><td><span class="level-bar"><span class="level-fill" style="width:70%"></span></span></td></tr>
+      <tr><td data-i18n="skills.r2a">Derivatives pricing</td><td data-i18n="skills.r2b">Black-Scholes, Monte Carlo, binomial trees</td><td><span class="level-bar"><span class="level-fill" style="width:65%"></span></span></td></tr>
+      <tr><td data-i18n="skills.r3a">Credit analysis</td><td data-i18n="skills.r3b">Solvency, ratings, financial statement review</td><td><span class="level-bar"><span class="level-fill" style="width:70%"></span></span></td></tr>
+      <tr><td data-i18n="skills.r4a">Valuation</td><td data-i18n="skills.r4b">DCF, comparables, financial modelling</td><td><span class="level-bar"><span class="level-fill" style="width:65%"></span></span></td></tr>
+      <tr><td data-i18n="skills.r5a">Python / VBA</td><td data-i18n="skills.r5b">Automation, NumPy, Pandas, SciPy</td><td><span class="level-bar"><span class="level-fill" style="width:65%"></span></span></td></tr>
     </tbody>
   </table>
 </section>
 
 <section id="contact">
   <div class="contact-panel">
-    <h2>Let's talk</h2>
-    <p>Open to opportunities in Capital Markets or Corporate Finance starting August 2026.</p>
+    <h2 data-i18n="contact.title">Let's talk</h2>
+    <p data-i18n="contact.text">Open to opportunities in Capital Markets or Corporate Finance starting August 2026.</p>
     <div class="contact-links">
       <a href="mailto:andrea.mulceu@skema.edu" class="btn btn-primary">Email ↗</a>
-      <a href="https://linkedin.com/in/andrea-mulceu/" class="btn btn-ghost">LinkedIn ↗</a>
-      <a href="https://github.com/AndreaMulceu" class="btn btn-ghost">GitHub ↗</a>
+      <a href="https://linkedin.com/in/YOUR-LINKEDIN-URL" class="btn btn-ghost">LinkedIn ↗</a>
+      <a href="https://github.com/YOUR-GITHUB-USERNAME" class="btn btn-ghost">GitHub ↗</a>
     </div>
   </div>
 </section>
 
 <footer>
-  Built with Python, coffee, and an unhealthy obsession with Greeks. © <span id="year"></span>
+  <span data-i18n="footer.text">Built with Python, coffee, and an unhealthy obsession with Greeks.</span> © <span id="year"></span>
 </footer>
 
 <script>
@@ -463,6 +559,143 @@ function draw(){
   ctx.stroke();
 }
 draw();
+
+/* ================= i18n ================= */
+const translations = {
+  en: {
+    "nav.about": "About",
+    "nav.intl": "International",
+    "nav.projects": "Projects",
+    "nav.skills": "Skills",
+    "nav.contact": "Contact",
+    "hero.eyebrow": "MSc Financial Markets and Investments · SKEMA Business School",
+    "hero.title": "I price it, I hedge it,<br>and I document the code.",
+    "hero.lead": "Finance student with hands-on experience in Société Générale's Forex &amp; Money Market Middle Office and credit analysis at Banque de France. I build Python tools to understand — and show — how the models used on an options desk actually work.",
+    "hero.cta": "See my projects ↓",
+    "hero.role": "MSc Financial Markets and Investments",
+    "hero.panelSub": "Black-Scholes · 25.0% implied vol",
+    "about.title": "About",
+    "about.text": "Currently pursuing an <b style=\"color:var(--navy)\">MSc in Financial Markets and Investments</b> at <span style=\"color:var(--navy)\">SKEMA Business School</span> (ranked 2nd worldwide by the Financial Times), after a Bachelor's in Corporate Finance &amp; Financial Markets at SKEMA Sophia-Antipolis and an exchange year in China (Nanjing Audit School). <br><br> On the practical side: <b style=\"color:var(--navy)\">Middle Office Forex &amp; Money Market Trading Support</b> at Société Générale (real-time Front Office support, pricing vanilla and complex transactions, VBA automation), and <b style=\"color:var(--navy)\">Financial Analyst</b> at Banque de France (solvency analysis, SME credit ratings). That combination — desk work and credit analysis — is what pushed me to rebuild pricing models myself instead of treating them as a black box. <br><br> Looking for a <b style=\"color:var(--navy)\">6-month gap year internship in Capital Markets or Corporate Finance</b> starting <span style=\"color:var(--navy)\">August 2026</span>.",
+    "about.li1k": "Languages (code)",
+    "about.li2k": "Quant finance",
+    "about.li3k": "Data",
+    "about.li4k": "Finance",
+    "about.li4v": "Modelling, valuation (DCF, comparables), credit",
+    "about.li5k": "Languages",
+    "about.li5v": "FR (native), EN (C1), IT (B2), ZH (A2)",
+    "intl.title": "International Experience",
+    "intl.intro": "Three continents, three very different pictures of finance — a contrast I've come to see as one of the more distinctive parts of my profile.",
+    "intl.au.title": "Australia — Melbourne",
+    "intl.au.text": "Left home young to learn English by immersion. Worked several student jobs — Uber Eats delivery, bartending — before landing an Accounting Assistant internship at TFE Hotel. Learned to be independent fast, and that fluency is built by necessity, not by choice.",
+    "intl.au.tag1": "Independence",
+    "intl.au.tag2": "English fluency",
+    "intl.au.tag3": "Accounting",
+    "intl.cn.title": "China — Nanjing",
+    "intl.cn.text": "My best experience abroad. A full exchange year at Nanjing Audit School, taking finance and management courses inside a Chinese university rather than as a visiting observer. It opened a real window onto Asia and gave me a genuine understanding of the culture — enough that I'm now learning Mandarin and seriously considering a future chapter of my career there.",
+    "intl.cn.tag1": "Asia exposure",
+    "intl.cn.tag2": "Mandarin (learning)",
+    "intl.cn.tag3": "Cultural fluency",
+    "intl.us.title": "United States — Raleigh, NC",
+    "intl.us.text": "The sharpest contrast on my CV. My MSc FMI is delivered at NC State University in partnership with SKEMA — ranked 2nd worldwide by the Financial Times — with a real possibility of a STEM designation. Several networking weekends in New York have already given me a first taste of US capital markets culture.",
+    "intl.us.tag1": "NC State partnership",
+    "intl.us.tag2": "STEM-eligible",
+    "intl.us.tag3": "NYC networking",
+    "projects.title": "Projects",
+    "projects.tag1": "PRICING",
+    "projects.p1": "Vanilla option pricing library comparing three approaches: Black-Scholes (closed form + analytical Greeks), Monte Carlo with variance reduction, and a binomial tree for American-style pricing. Includes an implied volatility solver via Newton-Raphson.",
+    "projects.tag2": "RISK",
+    "projects.p2": "Vectorized simulation of an option seller's P&amp;L under dynamic delta hedging. Quantifies the hedging error (tracking error) as a function of rebalancing frequency, and shows the P&amp;L impact of a gap between implied and realized volatility.",
+    "projects.tagmc": "Monte Carlo simulation",
+    "projects.link": "Source code ↗",
+    "projects.next.title": "[Next project]",
+    "projects.next.tag": "COMING UP",
+    "projects.next.text": "Natural next steps: calibrating a volatility surface from real market data, pricing barrier options, or backtesting a volatility strategy (straddle, strangle).",
+    "skills.title": "Skills",
+    "skills.col1": "Area", "skills.col2": "Detail", "skills.col3": "Level",
+    "skills.r1a": "FX/MM trading support", "skills.r1b": "Transaction pricing, real-time Front Office support",
+    "skills.r2a": "Derivatives pricing", "skills.r2b": "Black-Scholes, Monte Carlo, binomial trees",
+    "skills.r3a": "Credit analysis", "skills.r3b": "Solvency, ratings, financial statement review",
+    "skills.r4a": "Valuation", "skills.r4b": "DCF, comparables, financial modelling",
+    "skills.r5a": "Python / VBA", "skills.r5b": "Automation, NumPy, Pandas, SciPy",
+    "contact.title": "Let's talk",
+    "contact.text": "Open to opportunities in Capital Markets or Corporate Finance starting August 2026.",
+    "footer.text": "Built with Python, coffee, and an unhealthy obsession with Greeks."
+  },
+  fr: {
+    "nav.about": "À propos",
+    "nav.intl": "International",
+    "nav.projects": "Projets",
+    "nav.skills": "Compétences",
+    "nav.contact": "Contact",
+    "hero.eyebrow": "MSc Financial Markets and Investments · SKEMA Business School",
+    "hero.title": "Je pricee, je couvre,<br>et je documente le code.",
+    "hero.lead": "Étudiante en finance de marché, passée par le Middle Office FX &amp; Money Market de la Société Générale et par l'analyse de crédit à la Banque de France. Je construis des outils Python pour comprendre — et montrer — comment fonctionnent réellement les modèles utilisés sur un desk d'options.",
+    "hero.cta": "Voir mes projets ↓",
+    "hero.role": "MSc Financial Markets and Investments",
+    "hero.panelSub": "Black-Scholes · vol implicite 25.0%",
+    "about.title": "À propos",
+    "about.text": "Actuellement en <b style=\"color:var(--navy)\">MSc Financial Markets and Investments</b> à <span style=\"color:var(--navy)\">SKEMA Business School</span> (classé 2ᵉ mondial par le Financial Times), après un Bachelor en Corporate Finance &amp; Financial Markets à SKEMA Sophia-Antipolis et une année d'échange en Chine (Nanjing Audit School). <br><br> Côté terrain : <b style=\"color:var(--navy)\">Middle Office Forex &amp; Money Market Trading Support</b> à la Société Générale (support Front Office en temps réel, pricing de transactions vanille et complexes, automatisation VBA), et <b style=\"color:var(--navy)\">analyste financier</b> à la Banque de France (analyse de solvabilité, notation crédit de PME). C'est cette double expérience — desk et analyse crédit — qui m'a donné envie de reconstruire moi-même les modèles de pricing plutôt que de les utiliser en boîte noire. <br><br> Je recherche une <b style=\"color:var(--navy)\">année de césure de 6 mois en Capital Markets ou Corporate Finance</b> à partir d'<span style=\"color:var(--navy)\">août 2026</span>.",
+    "about.li1k": "Langages (code)",
+    "about.li2k": "Finance quant.",
+    "about.li3k": "Data",
+    "about.li4k": "Finance",
+    "about.li4v": "Modélisation, valorisation (DCF, comparables), crédit",
+    "about.li5k": "Langues",
+    "about.li5v": "FR (natif), EN (C1), IT (B2), ZH (A2)",
+    "intl.title": "Expérience internationale",
+    "intl.intro": "Trois continents, trois visions très différentes de la finance — un contraste qui, je crois, fait partie des éléments les plus distinctifs de mon profil.",
+    "intl.au.title": "Australie — Melbourne",
+    "intl.au.text": "Partie jeune pour apprendre l'anglais par immersion. J'ai enchaîné plusieurs jobs étudiants — livreuse Uber Eats, barmaid — avant de décrocher un stage d'assistante comptable au TFE Hotel. J'y ai appris l'indépendance très vite, et que la maîtrise d'une langue se construit par nécessité, pas par choix.",
+    "intl.au.tag1": "Indépendance",
+    "intl.au.tag2": "Maîtrise de l'anglais",
+    "intl.au.tag3": "Comptabilité",
+    "intl.cn.title": "Chine — Nankin",
+    "intl.cn.text": "Ma meilleure expérience à l'étranger. Une année d'échange complète à la Nanjing Audit School, avec de vrais cours de finance et de management au sein d'une université chinoise, pas en simple observatrice. Ça m'a ouvert une vraie fenêtre sur l'Asie et donné une compréhension sincère de la culture — au point d'apprendre le mandarin aujourd'hui et d'envisager sérieusement d'y construire une partie de ma carrière.",
+    "intl.cn.tag1": "Ouverture sur l'Asie",
+    "intl.cn.tag2": "Mandarin (en cours)",
+    "intl.cn.tag3": "Compréhension culturelle",
+    "intl.us.title": "États-Unis — Raleigh, NC",
+    "intl.us.text": "Le contraste le plus marqué de mon CV. Mon MSc FMI est délivré à NC State University en partenariat avec SKEMA — classé 2ᵉ mondial par le Financial Times — avec une réelle possibilité d'obtenir la certification STEM. Plusieurs week-ends de networking à New York m'ont déjà donné un premier aperçu de la culture des marchés de capitaux américains.",
+    "intl.us.tag1": "Partenariat NC State",
+    "intl.us.tag2": "Éligible STEM",
+    "intl.us.tag3": "Networking à NYC",
+    "projects.title": "Projets",
+    "projects.tag1": "PRICING",
+    "projects.p1": "Bibliothèque de pricing d'options vanille comparant trois approches : Black-Scholes (formule fermée + Greeks analytiques), Monte Carlo avec réduction de variance, et arbre binomial pour le pricing américain. Inclut un solveur de volatilité implicite par Newton-Raphson.",
+    "projects.tag2": "RISK",
+    "projects.p2": "Simulation vectorisée du P&amp;L d'un vendeur d'option couvert dynamiquement en delta. Quantifie l'erreur de couverture (tracking error) selon la fréquence de rebalancement, et montre l'impact d'un écart entre vol implicite et vol réalisée sur le P&amp;L.",
+    "projects.tagmc": "Simulation Monte Carlo",
+    "projects.link": "Code source ↗",
+    "projects.next.title": "[Prochain projet]",
+    "projects.next.tag": "À VENIR",
+    "projects.next.text": "Idées naturelles pour continuer : calibration d'une surface de volatilité à partir de données réelles, pricing d'options à barrière, ou backtest d'une stratégie de volatilité (straddle, strangle).",
+    "skills.title": "Compétences",
+    "skills.col1": "Domaine", "skills.col2": "Détail", "skills.col3": "Niveau",
+    "skills.r1a": "Trading support FX/MM", "skills.r1b": "Pricing de transactions, support Front Office temps réel",
+    "skills.r2a": "Pricing dérivés", "skills.r2b": "Black-Scholes, Monte Carlo, arbres binomiaux",
+    "skills.r3a": "Analyse crédit", "skills.r3b": "Solvabilité, notation, lecture d'états financiers",
+    "skills.r4a": "Valorisation", "skills.r4b": "DCF, comparables, modélisation financière",
+    "skills.r5a": "Python / VBA", "skills.r5b": "Automatisation, NumPy, Pandas, SciPy",
+    "contact.title": "Discutons",
+    "contact.text": "Ouverte aux opportunités en Capital Markets ou Corporate Finance à partir d'août 2026.",
+    "footer.text": "Construit avec Python, café, et une obsession pour les Greeks."
+  }
+};
+
+function setLang(lang){
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const value = translations[lang][key];
+    if(value !== undefined) el.innerHTML = value;
+  });
+  document.documentElement.lang = lang;
+  document.getElementById('btnEn').classList.toggle('active', lang === 'en');
+  document.getElementById('btnFr').classList.toggle('active', lang === 'fr');
+  try { localStorage.setItem('preferredLang', lang); } catch(e) { /* ignore if storage unavailable */ }
+}
+
+// Default to English on load
+setLang('en');
 </script>
 
 </body>
