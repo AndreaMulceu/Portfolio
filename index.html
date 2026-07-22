@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<title>Andrea Mulceu  Capital Markets &amp; Corporate Finance</title>
+<title>Andrea Mulceu · Capital Markets &amp; Corporate Finance</title>
 <style>
   :root{
     --bg:#f6f7f9;
@@ -70,6 +70,12 @@
   .brand{font-family:'IBM Plex Mono', monospace; font-size:15px; letter-spacing:0.5px; color:var(--navy);}
   .brand .dot{color:var(--amber);}
   .nav-right{display:flex; align-items:center; gap:28px;}
+
+  .nav-toggle{
+    display:none; flex-direction:column; justify-content:center; gap:5px;
+    width:34px; height:34px; background:none; border:none; cursor:pointer; padding:0;
+  }
+  .nav-toggle span{width:100%; height:2px; background:var(--navy); border-radius:2px;}
   nav ul{list-style:none; display:flex; gap:28px; margin:0; padding:0; font-size:14px;}
   nav a{color:var(--text-dim);}
   nav a:hover{color:var(--navy); text-decoration:none;}
@@ -311,13 +317,45 @@
   }
 
   @media (max-width: 760px){
-    .hero{grid-template-columns:1fr;}
-    .id-card{max-width:320px;}
+    .hero{grid-template-columns:1fr; padding:32px 20px 40px;}
+    .id-card{max-width:340px; margin:0 auto;}
     .about-grid{grid-template-columns:1fr;}
     .globe-grid{grid-template-columns:1fr;}
-    h1{font-size:32px;}
-    nav ul{gap:16px; font-size:13px;}
-    .nav-right{gap:14px;}
+    h1{font-size:30px;}
+    section{padding:48px 20px;}
+
+    header nav{padding:14px 20px; position:relative;}
+    .nav-toggle{display:flex;}
+    .nav-right{
+      display:none; position:absolute; top:100%; left:0; right:0;
+      background:var(--bg-panel); border-bottom:1px solid var(--line);
+      flex-direction:column; align-items:stretch; gap:0; padding:8px 20px 18px;
+      box-shadow:0 8px 16px rgba(18,23,42,0.08); z-index:20;
+    }
+    .nav-right.open{display:flex;}
+    .nav-right ul{flex-direction:column; gap:0; width:100%;}
+    .nav-right ul li{border-bottom:1px solid var(--line);}
+    .nav-right ul li a{display:block; padding:13px 2px;}
+    .lang-switch{margin-top:14px; align-self:flex-start;}
+  }
+
+  @media (max-width: 480px){
+    h1{font-size:25px;}
+    .eyebrow{font-size:11.5px;}
+    .cta-row{flex-direction:column; align-items:stretch;}
+    .cta-row .btn{justify-content:center;}
+    .exp-item{grid-template-columns:1fr; gap:6px;}
+    .globe-card{padding:18px;}
+    .calc-panel{padding:20px;}
+    .calc-greeks{grid-template-columns:repeat(3, 1fr); gap:10px 6px; row-gap:14px;}
+    .contact-panel{padding:30px 20px;}
+    .blotter{font-size:11.5px;}
+    .blotter th, .blotter td{padding:9px 8px;}
+    .level-bar{width:56px;}
+  }
+
+  @media (max-width: 400px){
+    .blotter{display:block; overflow-x:auto; white-space:nowrap;}
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -334,15 +372,18 @@
 <header>
   <nav>
     <div class="brand">ANDREA<span class="dot">·</span>MULCEU</div>
-    <div class="nav-right">
+    <button class="nav-toggle" id="navToggle" onclick="toggleNav()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-right" id="navRight">
       <ul>
-        <li><a href="#about" data-i18n="nav.about">About</a></li>
-        <li><a href="#experience" data-i18n="nav.exp">Experience</a></li>
-        <li><a href="#international" data-i18n="nav.intl">International</a></li>
-        <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
-        <li><a href="#calculator" data-i18n="nav.calc">Calculator</a></li>
-        <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
-        <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+        <li><a href="#about" data-i18n="nav.about" onclick="closeNav()">About</a></li>
+        <li><a href="#experience" data-i18n="nav.exp" onclick="closeNav()">Experience</a></li>
+        <li><a href="#international" data-i18n="nav.intl" onclick="closeNav()">International</a></li>
+        <li><a href="#projects" data-i18n="nav.projects" onclick="closeNav()">Projects</a></li>
+        <li><a href="#calculator" data-i18n="nav.calc" onclick="closeNav()">Calculator</a></li>
+        <li><a href="#skills" data-i18n="nav.skills" onclick="closeNav()">Skills</a></li>
+        <li><a href="#contact" data-i18n="nav.contact" onclick="closeNav()">Contact</a></li>
       </ul>
       <div class="lang-switch">
         <button id="btnEn" class="active" onclick="setLang('en')">EN</button>
@@ -358,8 +399,7 @@
     <h1 data-i18n="hero.title">I price it, I hedge it,<br>and I document the code.</h1>
     <p class="lead" data-i18n="hero.lead">
       Finance student with hands-on experience in Société Générale's Forex &amp; Money Market Middle Office
-      and credit analysis at Banque de France. I build Python tools to understand  and show 
-      how the models used on an options desk actually work.
+      and credit analysis at Banque de France. I build Python tools to understand and show how the models used on an options desk actually work.
     </p>
     <div class="cta-row">
       <a href="#projects" class="btn btn-primary" data-i18n="hero.cta">See my projects ↓</a>
@@ -377,7 +417,7 @@
     </div>
     <div class="panel">
       <div class="panel-head">
-        <span>EUR CALL  S=100 K=105 T=0.5</span>
+        <span>EUR CALL · S=100 K=105 T=0.5</span>
         <span id="clock">--:--:--</span>
       </div>
       <div class="panel-price">5.3498</div>
@@ -405,10 +445,10 @@
       On the practical side: <b style="color:var(--navy)">Middle Office Forex &amp; Money Market Trading Support</b>
       at Société Générale (real-time Front Office support, pricing vanilla and complex transactions, VBA automation),
       and <b style="color:var(--navy)">Financial Analyst</b> at Banque de France (solvency analysis, SME credit ratings).
-      That combination  desk work and credit analysis  is what pushed me to rebuild pricing models myself
+      That combination — desk work and credit analysis — is what pushed me to rebuild pricing models myself
       instead of treating them as a black box.
       <br><br>
-      Looking for a <b style="color:var(--navy)">6-month off-cycle internship in financial Markets or investment banking </b>
+      Looking for a <b style="color:var(--navy)">6-month off-cycle internship in Financial Markets or Investment Banking</b>
       starting <span style="color:var(--navy)">May 2027</span>.
     </p>
     <ul class="stack-list">
@@ -427,8 +467,8 @@
     <div class="exp-item">
       <div class="exp-dates">Apr 2026 – Aug 2026</div>
       <div class="exp-body">
-        <h3 data-i18n="exp.sg.role">Middle Office  Forex &amp; Money Market Trading Support</h3>
-        <span class="exp-company">Société Générale  Paris La Défense</span>
+        <h3 data-i18n="exp.sg.role">Middle Office · Forex &amp; Money Market Trading Support</h3>
+        <span class="exp-company">Société Générale · Paris La Défense</span>
         <ul>
           <li data-i18n="exp.sg.li1">Provided real-time support to the Front Office on Forex and Money Market operations</li>
           <li data-i18n="exp.sg.li2">Matched and priced vanilla and complex transactions across information systems</li>
@@ -440,7 +480,7 @@
       <div class="exp-dates">May 2024 – Aug 2024</div>
       <div class="exp-body">
         <h3 data-i18n="exp.bdf.role">Financial Analyst</h3>
-        <span class="exp-company">Banque de France  Nice</span>
+        <span class="exp-company">Banque de France · Nice</span>
         <ul>
           <li data-i18n="exp.bdf.li1">Conducted financial analysis on multiple SMEs to update their Banque de France credit rating</li>
           <li data-i18n="exp.bdf.li2">Assessed corporate solvency through review of balance sheets, income statements and notes</li>
@@ -452,7 +492,7 @@
       <div class="exp-dates">May 2023 – Aug 2023</div>
       <div class="exp-body">
         <h3 data-i18n="exp.tfe.role">Accounting Assistant</h3>
-        <span class="exp-company">TFE Hotel  Melbourne</span>
+        <span class="exp-company">TFE Hotel · Melbourne</span>
         <ul>
           <li data-i18n="exp.tfe.li1">Performed weekly bank reconciliations and processed 40+ supplier invoices per week</li>
           <li data-i18n="exp.tfe.li2">Contributed to monthly accounting close in coordination with the Finance team</li>
@@ -466,17 +506,16 @@
 <section id="international">
   <div class="section-head"><span class="section-num">03</span><h2 data-i18n="intl.title">International Experience</h2><hr class="rule"></div>
   <p style="color:var(--text-dim); font-size:15.5px; max-width:80ch; margin-top:-14px; margin-bottom:32px;" data-i18n="intl.intro">
-    Three continents, three very different pictures of finance  a contrast I've come to see as one of the
+    Three continents, three very different pictures of finance, a contrast I've come to see as one of the
     more distinctive parts of my profile.
   </p>
   <div class="globe-grid">
     <div class="globe-card au">
       <span class="globe-flag">🇦🇺</span>
-      <h3 data-i18n="intl.au.title">Australia  Melbourne</h3>
+      <h3 data-i18n="intl.au.title">Australia · Melbourne</h3>
       <span class="globe-dates">2023</span>
       <p data-i18n="intl.au.text">
-        Left home young to learn English by immersion. Worked several student jobs  Uber Eats delivery,
-        bartending  before landing an Accounting Assistant internship at TFE Hotel. Learned to be
+        Left home young to learn English by immersion. Worked several student jobs, including Uber Eats delivery and bartending, before landing an Accounting Assistant internship at TFE Hotel. Learned to be
         independent fast, and that fluency is built by necessity, not by choice.
       </p>
       <div class="globe-tags">
@@ -487,13 +526,12 @@
     </div>
     <div class="globe-card cn">
       <span class="globe-flag">🇨🇳</span>
-      <h3 data-i18n="intl.cn.title">China  Nanjing</h3>
+      <h3 data-i18n="intl.cn.title">China · Nanjing</h3>
       <span class="globe-dates">Jan 2025 – Jan 2026</span>
       <p data-i18n="intl.cn.text">
         My best experience abroad. A full exchange year at Nanjing Audit School, taking finance and
         management courses inside a Chinese university rather than as a visiting observer. It opened
-        a real window onto Asia and gave me a genuine understanding of the culture  enough that I'm
-        now learning Mandarin and seriously considering a future chapter of my career there.
+        a real window onto Asia and gave me a genuine understanding of the culture, enough that I'm now learning Mandarin and seriously considering a future chapter of my career there.
       </p>
       <div class="globe-tags">
         <span data-i18n="intl.cn.tag1">Asia exposure</span>
@@ -503,12 +541,10 @@
     </div>
     <div class="globe-card us">
       <span class="globe-flag">🇺🇸</span>
-      <h3 data-i18n="intl.us.title">United States  Raleigh, NC</h3>
+      <h3 data-i18n="intl.us.title">United States · Raleigh, NC</h3>
       <span class="globe-dates">Aug 2026 – Apr 2027</span>
       <p data-i18n="intl.us.text">
-        The sharpest contrast on my CV. My MSc FMI is delivered at NC State University in partnership
-        with SKEMA  ranked 2nd worldwide by the Financial Times  with a real possibility of a STEM
-        designation. Several networking weekends in New York have already given me a first taste of
+        The sharpest contrast on my CV. My MSc FMI is delivered at NC State University in partnership with SKEMA, ranked 2nd worldwide by the Financial Times, with a real possibility of a STEM designation. Several networking weekends in New York have already given me a first taste of
         US capital markets culture.
       </p>
       <div class="globe-tags">
@@ -624,7 +660,7 @@
         </div>
       </div>
     </div>
-    <div class="calc-note" data-i18n="calc.note">Black-Scholes-Merton, computed client-side in JavaScript  same model as the Python toolkit above.</div>
+    <div class="calc-note" data-i18n="calc.note">Black-Scholes-Merton, computed client-side in JavaScript, using the same model as the Python toolkit above.</div>
   </div>
 </section>
 
@@ -662,6 +698,14 @@
 
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Mobile hamburger nav
+function toggleNav(){
+  document.getElementById('navRight').classList.toggle('open');
+}
+function closeNav(){
+  document.getElementById('navRight').classList.remove('open');
+}
 
 // Terminal-style clock
 function tick(){
@@ -725,13 +769,13 @@ const translations = {
     "nav.contact": "Contact",
     "hero.eyebrow": "MSc Financial Markets and Investments · SKEMA Business School",
     "hero.title": "I price it, I hedge it,<br>and I document the code.",
-    "hero.lead": "Finance student with hands-on experience in Société Générale's Forex &amp; Money Market Middle Office and credit analysis at Banque de France. I build Python tools to understand  and show  how the models used on an options desk actually work.",
+    "hero.lead": "Finance student with hands-on experience in Société Générale's Forex &amp; Money Market Middle Office and credit analysis at Banque de France. I build Python tools to understand and show how the models used on an options desk actually work.",
     "hero.cta": "See my projects ↓",
     "hero.cv": "Download CV ↓",
     "hero.role": "MSc Financial Markets and Investments",
     "hero.panelSub": "Black-Scholes · 25.0% implied vol",
     "about.title": "About",
-    "about.text": "Currently pursuing an <b style=\"color:var(--navy)\">MSc in Financial Markets and Investments</b> at <span style=\"color:var(--navy)\">SKEMA Business School</span> (ranked 2nd worldwide by the Financial Times), after a Bachelor's in Corporate Finance &amp; Financial Markets at SKEMA Sophia-Antipolis and an exchange year in China (Nanjing Audit School). <br><br> On the practical side: <b style=\"color:var(--navy)\">Middle Office Forex &amp; Money Market Trading Support</b> at Société Générale (real-time Front Office support, pricing vanilla and complex transactions, VBA automation), and <b style=\"color:var(--navy)\">Financial Analyst</b> at Banque de France (solvency analysis, SME credit ratings). That combination  desk work and credit analysis  is what pushed me to rebuild pricing models myself instead of treating them as a black box. <br><br> Looking for a <b style=\"color:var(--navy)\">6-month gap year internship in Capital Markets or Corporate Finance</b> starting <span style=\"color:var(--navy)\">August 2026</span>.",
+    "about.text": "Currently pursuing an <b style=\"color:var(--navy)\">MSc in Financial Markets and Investments</b> at <span style=\"color:var(--navy)\">SKEMA Business School</span> (ranked 2nd worldwide by the Financial Times), after a Bachelor's in Corporate Finance &amp; Financial Markets at SKEMA Sophia-Antipolis and an exchange year in China (Nanjing Audit School). <br><br> On the practical side: <b style=\"color:var(--navy)\">Middle Office Forex &amp; Money Market Trading Support</b> at Société Générale (real-time Front Office support, pricing vanilla and complex transactions, VBA automation), and <b style=\"color:var(--navy)\">Financial Analyst</b> at Banque de France (solvency analysis, SME credit ratings). That combination — desk work and credit analysis — is what pushed me to rebuild pricing models myself instead of treating them as a black box. <br><br> Looking for a <b style=\"color:var(--navy)\">6-month off-cycle internship in Financial Markets or Investment Banking</b> starting <span style=\"color:var(--navy)\">May 2027</span>.",
     "about.li1k": "Languages (code)",
     "about.li2k": "Quant finance",
     "about.li3k": "Data",
@@ -740,7 +784,7 @@ const translations = {
     "about.li5k": "Languages",
     "about.li5v": "FR (native), EN (C1), IT (B2), ZH (A2)",
     "exp.title": "Experience",
-    "exp.sg.role": "Middle Office  Forex &amp; Money Market Trading Support",
+    "exp.sg.role": "Middle Office · Forex &amp; Money Market Trading Support",
     "exp.sg.li1": "Provided real-time support to the Front Office on Forex and Money Market operations",
     "exp.sg.li2": "Matched and priced vanilla and complex transactions across information systems",
     "exp.sg.li3": "Built VBA and Power Query macros automating the daily CAPEX reporting workflow, <span class=\"exp-highlight\">cutting processing time by 2 hours per day</span>",
@@ -753,19 +797,19 @@ const translations = {
     "exp.tfe.li2": "Contributed to monthly accounting close in coordination with the Finance team",
     "exp.tfe.li3": "Verified payment compliance and helped improve the accounting process",
     "intl.title": "International Experience",
-    "intl.intro": "Three continents, three very different pictures of finance  a contrast I've come to see as one of the more distinctive parts of my profile.",
-    "intl.au.title": "Australia  Melbourne",
-    "intl.au.text": "Left home young to learn English by immersion. Worked several student jobs  Uber Eats delivery, bartending  before landing an Accounting Assistant internship at TFE Hotel. Learned to be independent fast, and that fluency is built by necessity, not by choice.",
+    "intl.intro": "Three continents, three very different pictures of finance, a contrast I've come to see as one of the more distinctive parts of my profile.",
+    "intl.au.title": "Australia · Melbourne",
+    "intl.au.text": "Left home young to learn English by immersion. Worked several student jobs, including Uber Eats delivery and bartending, before landing an Accounting Assistant internship at TFE Hotel. Learned to be independent fast, and that fluency is built by necessity, not by choice.",
     "intl.au.tag1": "Independence",
     "intl.au.tag2": "English fluency",
     "intl.au.tag3": "Accounting",
-    "intl.cn.title": "China  Nanjing",
-    "intl.cn.text": "My best experience abroad. A full exchange year at Nanjing Audit School, taking finance and management courses inside a Chinese university rather than as a visiting observer. It opened a real window onto Asia and gave me a genuine understanding of the culture  enough that I'm now learning Mandarin and seriously considering a future chapter of my career there.",
+    "intl.cn.title": "China · Nanjing",
+    "intl.cn.text": "My best experience abroad. A full exchange year at Nanjing Audit School, taking finance and management courses inside a Chinese university rather than as a visiting observer. It opened a real window onto Asia and gave me a genuine understanding of the culture, enough that I'm now learning Mandarin and seriously considering a future chapter of my career there.",
     "intl.cn.tag1": "Asia exposure",
     "intl.cn.tag2": "Mandarin (learning)",
     "intl.cn.tag3": "Cultural fluency",
-    "intl.us.title": "United States  Raleigh, NC",
-    "intl.us.text": "The sharpest contrast on my CV. My MSc FMI is delivered at NC State University in partnership with SKEMA  ranked 2nd worldwide by the Financial Times  with a real possibility of a STEM designation. Several networking weekends in New York have already given me a first taste of US capital markets culture.",
+    "intl.us.title": "United States · Raleigh, NC",
+    "intl.us.text": "The sharpest contrast on my CV. My MSc FMI is delivered at NC State University in partnership with SKEMA, ranked 2nd worldwide by the Financial Times, with a real possibility of a STEM designation. Several networking weekends in New York have already given me a first taste of US capital markets culture.",
     "intl.us.tag1": "NC State partnership",
     "intl.us.tag2": "STEM-eligible",
     "intl.us.tag3": "NYC networking",
@@ -791,7 +835,7 @@ const translations = {
     "calc.vol": "Volatility (σ)",
     "calc.priceLabel": "Call price",
     "calc.priceLabelPut": "Put price",
-    "calc.note": "Black-Scholes-Merton, computed client-side in JavaScript  same model as the Python toolkit above.",
+    "calc.note": "Black-Scholes-Merton, computed client-side in JavaScript, using the same model as the Python toolkit above.",
     "skills.col1": "Area", "skills.col2": "Detail", "skills.col3": "Level",
     "skills.r1a": "FX/MM trading support", "skills.r1b": "Transaction pricing, real-time Front Office support",
     "skills.r2a": "Derivatives pricing", "skills.r2b": "Black-Scholes, Monte Carlo, binomial trees",
@@ -799,7 +843,7 @@ const translations = {
     "skills.r4a": "Valuation", "skills.r4b": "DCF, comparables, financial modelling",
     "skills.r5a": "Python / VBA", "skills.r5b": "Automation, NumPy, Pandas, SciPy",
     "contact.title": "Let's talk",
-    "contact.text": "Open to opportunities in Capital Markets or Corporate Finance starting August 2026.",
+    "contact.text": "Open to a 6-month off-cycle internship in Financial Markets or Investment Banking starting May 2027.",
     "footer.text": "Built with Python, coffee, and an unhealthy obsession with Greeks."
   },
   fr: {
@@ -812,13 +856,13 @@ const translations = {
     "nav.contact": "Contact",
     "hero.eyebrow": "MSc Financial Markets and Investments · SKEMA Business School",
     "hero.title": "Je pricee, je couvre,<br>et je documente le code.",
-    "hero.lead": "Étudiant en finance de marché, passé par le Middle Office FX &amp; Money Market de la Société Générale et par l'analyse de crédit à la Banque de France. Je construis des outils Python pour comprendre  et montrer  comment fonctionnent réellement les modèles utilisés sur un desk d'options.",
+    "hero.lead": "Étudiant en finance de marché, passé par le Middle Office FX &amp; Money Market de la Société Générale et par l'analyse de crédit à la Banque de France. Je construis des outils Python pour comprendre et montrer comment fonctionnent réellement les modèles utilisés sur un desk d'options.",
     "hero.cta": "Voir mes projets ↓",
     "hero.cv": "Télécharger le CV ↓",
     "hero.role": "MSc Financial Markets and Investments",
     "hero.panelSub": "Black-Scholes · vol implicite 25.0%",
     "about.title": "À propos",
-    "about.text": "Actuellement en <b style=\"color:var(--navy)\">MSc Financial Markets and Investments</b> à <span style=\"color:var(--navy)\">SKEMA Business School</span> (classé 2ᵉ mondial par le Financial Times), après un Bachelor en Corporate Finance &amp; Financial Markets à SKEMA Sophia-Antipolis et une année d'échange en Chine (Nanjing Audit School). <br><br> Côté terrain : <b style=\"color:var(--navy)\">Middle Office Forex &amp; Money Market Trading Support</b> à la Société Générale (support Front Office en temps réel, pricing de transactions vanille et complexes, automatisation VBA), et <b style=\"color:var(--navy)\">analyste financier</b> à la Banque de France (analyse de solvabilité, notation crédit de PME). C'est cette double expérience  desk et analyse crédit  qui m'a donné envie de reconstruire moi-même les modèles de pricing plutôt que de les utiliser en boîte noire. <br><br> Je recherche une <b style=\"color:var(--navy)\">année de césure de 6 mois en Capital Markets ou Corporate Finance</b> à partir d'<span style=\"color:var(--navy)\">août 2026</span>.",
+    "about.text": "Actuellement en <b style=\"color:var(--navy)\">MSc Financial Markets and Investments</b> à <span style=\"color:var(--navy)\">SKEMA Business School</span> (classé 2ᵉ mondial par le Financial Times), après un Bachelor en Corporate Finance &amp; Financial Markets à SKEMA Sophia-Antipolis et une année d'échange en Chine (Nanjing Audit School). <br><br> Côté terrain : <b style=\"color:var(--navy)\">Middle Office Forex &amp; Money Market Trading Support</b> à la Société Générale (support Front Office en temps réel, pricing de transactions vanille et complexes, automatisation VBA), et <b style=\"color:var(--navy)\">analyste financier</b> à la Banque de France (analyse de solvabilité, notation crédit de PME). C'est cette double expérience — desk et analyse crédit — qui m'a donné envie de reconstruire moi-même les modèles de pricing plutôt que de les utiliser en boîte noire. <br><br> Je recherche un <b style=\"color:var(--navy)\">stage de césure de 6 mois en finance de marché ou investment banking</b> à partir de <span style=\"color:var(--navy)\">mai 2027</span>.",
     "about.li1k": "Langages (code)",
     "about.li2k": "Finance quant.",
     "about.li3k": "Data",
@@ -827,7 +871,7 @@ const translations = {
     "about.li5k": "Langues",
     "about.li5v": "FR (natif), EN (C1), IT (B2), ZH (A2)",
     "exp.title": "Expérience",
-    "exp.sg.role": "Middle Office  Forex &amp; Money Market Trading Support",
+    "exp.sg.role": "Middle Office · Forex &amp; Money Market Trading Support",
     "exp.sg.li1": "Support en temps réel au Front Office sur les opérations Forex et Money Market",
     "exp.sg.li2": "Rapprochement et pricing de transactions vanille et complexes dans les systèmes d'information",
     "exp.sg.li3": "Développement de macros VBA et Power Query automatisant le reporting CAPEX quotidien, <span class=\"exp-highlight\">réduisant le temps de traitement de 2 heures par jour</span>",
@@ -840,19 +884,19 @@ const translations = {
     "exp.tfe.li2": "Participation à la clôture comptable mensuelle avec l'équipe Finance",
     "exp.tfe.li3": "Vérification de la conformité des paiements et amélioration du processus comptable",
     "intl.title": "Expérience internationale",
-    "intl.intro": "Trois continents, trois visions très différentes de la finance  un contraste qui, je crois, fait partie des éléments les plus distinctifs de mon profil.",
-    "intl.au.title": "Australie  Melbourne",
-    "intl.au.text": "Parti jeune pour apprendre l'anglais par immersion. J'ai enchaîné plusieurs jobs étudiants  livreur Uber Eats, barman  avant de décrocher un stage d'assistant comptable au TFE Hotel. J'y ai appris l'indépendance très vite, et que la maîtrise d'une langue se construit par nécessité, pas par choix.",
+    "intl.intro": "Trois continents, trois visions très différentes de la finance, un contraste qui, je crois, fait partie des éléments les plus distinctifs de mon profil.",
+    "intl.au.title": "Australie · Melbourne",
+    "intl.au.text": "Parti jeune pour apprendre l'anglais par immersion. J'ai enchaîné plusieurs jobs étudiants, livreur Uber Eats et barman, avant de décrocher un stage d'assistant comptable au TFE Hotel. J'y ai appris l'indépendance très vite, et que la maîtrise d'une langue se construit par nécessité, pas par choix.",
     "intl.au.tag1": "Indépendance",
     "intl.au.tag2": "Maîtrise de l'anglais",
     "intl.au.tag3": "Comptabilité",
-    "intl.cn.title": "Chine  Nankin",
-    "intl.cn.text": "Ma meilleure expérience à l'étranger. Une année d'échange complète à la Nanjing Audit School, avec de vrais cours de finance et de management au sein d'une université chinoise, pas en simple observatrice. Ça m'a ouvert une vraie fenêtre sur l'Asie et donné une compréhension sincère de la culture  au point d'apprendre le mandarin aujourd'hui et d'envisager sérieusement d'y construire une partie de ma carrière.",
+    "intl.cn.title": "Chine · Nankin",
+    "intl.cn.text": "Ma meilleure expérience à l'étranger. Une année d'échange complète à la Nanjing Audit School, avec de vrais cours de finance et de management au sein d'une université chinoise, pas en simple observatrice. Ça m'a ouvert une vraie fenêtre sur l'Asie et donné une compréhension sincère de la culture, au point d'apprendre le mandarin aujourd'hui et d'envisager sérieusement d'y construire une partie de ma carrière.",
     "intl.cn.tag1": "Ouverture sur l'Asie",
     "intl.cn.tag2": "Mandarin (en cours)",
     "intl.cn.tag3": "Compréhension culturelle",
-    "intl.us.title": "États-Unis  Raleigh, NC",
-    "intl.us.text": "Le contraste le plus marqué de mon CV. Mon MSc FMI est délivré à NC State University en partenariat avec SKEMA  classé 2ᵉ mondial par le Financial Times  avec une réelle possibilité d'obtenir la certification STEM. Plusieurs week-ends de networking à New York m'ont déjà donné un premier aperçu de la culture des marchés de capitaux américains.",
+    "intl.us.title": "États-Unis · Raleigh, NC",
+    "intl.us.text": "Le contraste le plus marqué de mon CV. Mon MSc FMI est délivré à NC State University en partenariat avec SKEMA, classé 2ᵉ mondial par le Financial Times, avec une réelle possibilité d'obtenir la certification STEM. Plusieurs week-ends de networking à New York m'ont déjà donné un premier aperçu de la culture des marchés de capitaux américains.",
     "intl.us.tag1": "Partenariat NC State",
     "intl.us.tag2": "Éligible STEM",
     "intl.us.tag3": "Networking à NYC",
@@ -886,7 +930,7 @@ const translations = {
     "skills.r4a": "Valorisation", "skills.r4b": "DCF, comparables, modélisation financière",
     "skills.r5a": "Python / VBA", "skills.r5b": "Automatisation, NumPy, Pandas, SciPy",
     "contact.title": "Discutons",
-    "contact.text": "Ouvert aux opportunités en Capital Markets ou Corporate Finance à partir d'août 2026.",
+    "contact.text": "Ouvert à un stage de césure de 6 mois en finance de marché ou investment banking à partir de mai 2027.",
     "footer.text": "Construit avec Python, café, et une obsession pour les Greeks."
   }
 };
