@@ -186,8 +186,16 @@
   .about-grid{display:grid; grid-template-columns:2fr 1fr; gap:40px;}
   .about-grid p{color:var(--text-dim); font-size:15.5px;}
   .stack-list{list-style:none; padding:0; margin:0; font-family:'IBM Plex Mono', monospace; font-size:13px;}
-  .stack-list li{padding:7px 0; border-bottom:1px solid var(--line); color:var(--text-dim); display:flex; justify-content:space-between;}
-  .stack-list li b{color:var(--navy); font-weight:500;}
+  .stack-list li{padding:7px 0; border-bottom:1px solid var(--line); color:var(--text-dim); display:flex; justify-content:space-between; gap:16px;}
+  .stack-list li > span:first-child{flex-shrink:0;}
+  .stack-list li b{color:var(--navy); font-weight:500; text-align:right;}
+  .stack-list li.stack-chip-row{flex-direction:column; align-items:flex-start; gap:8px; padding:11px 0;}
+  .stack-label{color:var(--text-dim);}
+  .chip-group{display:flex; flex-wrap:wrap; gap:6px;}
+  .chip{
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--navy);
+    background:var(--bg); border:1px solid var(--line-strong); padding:3px 10px; border-radius:12px;
+  }
 
   /* Experience timeline */
   .exp-list{display:flex; flex-direction:column; gap:0;}
@@ -380,9 +388,9 @@
         <li><a href="#about" data-i18n="nav.about" onclick="closeNav()">About</a></li>
         <li><a href="#experience" data-i18n="nav.exp" onclick="closeNav()">Experience</a></li>
         <li><a href="#international" data-i18n="nav.intl" onclick="closeNav()">International</a></li>
+        <li><a href="#skills" data-i18n="nav.skills" onclick="closeNav()">Skills</a></li>
         <li><a href="#projects" data-i18n="nav.projects" onclick="closeNav()">Projects</a></li>
         <li><a href="#calculator" data-i18n="nav.calc" onclick="closeNav()">Calculator</a></li>
-        <li><a href="#skills" data-i18n="nav.skills" onclick="closeNav()">Skills</a></li>
         <li><a href="#contact" data-i18n="nav.contact" onclick="closeNav()">Contact</a></li>
       </ul>
       <div class="lang-switch">
@@ -415,21 +423,6 @@
       <div class="name">Andrea Mulceu</div>
       <div class="role" data-i18n="hero.role">MSc Financial Markets and Investments</div>
     </div>
-    <div class="panel">
-      <div class="panel-head">
-        <span>EUR CALL · S=100 K=105 T=0.5</span>
-        <span id="clock">--:--:--</span>
-      </div>
-      <div class="panel-price">5.3498</div>
-      <div class="panel-sub" data-i18n="hero.panelSub">Black-Scholes · 25.0% implied vol</div>
-      <canvas id="sparkline"></canvas>
-      <div class="greeks-row">
-        <div><span>Delta</span><b>0.446</b></div>
-        <div><span>Gamma</span><b>0.022</b></div>
-        <div><span>Vega</span><b>0.278</b></div>
-        <div><span>Theta</span><b>-0.021</b></div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -452,11 +445,29 @@
       starting <span style="color:var(--navy)">May 2027</span>.
     </p>
     <ul class="stack-list">
-      <li><span data-i18n="about.li1k">Languages (code)</span><b>Python, VBA, SQL</b></li>
-      <li><span data-i18n="about.li2k">Quant finance</span><b>Black-Scholes, Monte Carlo, Greeks</b></li>
-      <li><span data-i18n="about.li3k">Data</span><b>Excel, Power BI, NumPy, Pandas</b></li>
+      <li class="stack-chip-row">
+        <span class="stack-label" data-i18n="about.li1k">Tech Stack</span>
+        <span class="chip-group">
+          <span class="chip">Python</span><span class="chip">VBA</span><span class="chip">SQL</span><span class="chip">HTML</span><span class="chip">C++</span>
+        </span>
+      </li>
+      <li class="stack-chip-row">
+        <span class="stack-label" data-i18n="about.li3k">Data</span>
+        <span class="chip-group">
+          <span class="chip">Excel</span><span class="chip">Power BI</span><span class="chip">NumPy</span><span class="chip">Pandas</span>
+        </span>
+      </li>
+      <li class="stack-chip-row">
+        <span class="stack-label" data-i18n="about.li5k">Languages</span>
+        <span class="chip-group">
+          <span class="chip">🇫🇷 <span data-i18n="about.langFr">Native</span></span>
+          <span class="chip">🇬🇧 C1</span>
+          <span class="chip">🇮🇹 B2</span>
+          <span class="chip">🇨🇳 A2</span>
+        </span>
+      </li>
       <li><span data-i18n="about.li4k">Finance</span><b data-i18n="about.li4v">Modelling, valuation (DCF, comparables), credit</b></li>
-      <li><span data-i18n="about.li5k">Languages</span><b data-i18n="about.li5v">FR (native), EN (C1), IT (B2), ZH (A2)</b></li>
+      <li><span data-i18n="about.li2k">Quant finance</span><b>Black-Scholes, Monte Carlo, Greeks</b></li>
     </ul>
   </div>
 </section>
@@ -556,8 +567,24 @@
   </div>
 </section>
 
+<section id="skills">
+  <div class="section-head"><span class="section-num">04</span><h2 data-i18n="skills.title">Skills</h2><hr class="rule"></div>
+  <table class="blotter">
+    <thead>
+      <tr><th data-i18n="skills.col1">Area</th><th data-i18n="skills.col2">Detail</th><th data-i18n="skills.col3">Level</th></tr>
+    </thead>
+    <tbody>
+      <tr><td data-i18n="skills.r1a">FX/MM trading support</td><td data-i18n="skills.r1b">Transaction pricing, real-time Front Office support</td><td><span class="level-bar"><span class="level-fill" style="width:70%"></span></span></td></tr>
+      <tr><td data-i18n="skills.r2a">Derivatives pricing</td><td data-i18n="skills.r2b">Black-Scholes, Monte Carlo, binomial trees</td><td><span class="level-bar"><span class="level-fill" style="width:65%"></span></span></td></tr>
+      <tr><td data-i18n="skills.r3a">Credit analysis</td><td data-i18n="skills.r3b">Solvency, ratings, financial statement review</td><td><span class="level-bar"><span class="level-fill" style="width:70%"></span></span></td></tr>
+      <tr><td data-i18n="skills.r4a">Valuation</td><td data-i18n="skills.r4b">DCF, comparables, financial modelling</td><td><span class="level-bar"><span class="level-fill" style="width:65%"></span></span></td></tr>
+      <tr><td data-i18n="skills.r5a">Python / VBA</td><td data-i18n="skills.r5b">Automation, NumPy, Pandas, SciPy</td><td><span class="level-bar"><span class="level-fill" style="width:80%"></span></span></td></tr>
+    </tbody>
+  </table>
+</section>
+
 <section id="projects">
-  <div class="section-head"><span class="section-num">04</span><h2 data-i18n="projects.title">Projects</h2><hr class="rule"></div>
+  <div class="section-head"><span class="section-num">05</span><h2 data-i18n="projects.title">Projects</h2><hr class="rule"></div>
 
   <div class="project-card">
     <img src="greeks_and_convergence.png" alt="Greeks and pricing model convergence chart">
@@ -600,23 +627,10 @@
       </div>
     </div>
   </div>
-
-  <div class="project-card">
-    <div class="project-body">
-      <div class="project-title">
-        <h3 data-i18n="projects.next.title">[Next project]</h3>
-        <span class="project-tag" data-i18n="projects.next.tag">COMING UP</span>
-      </div>
-      <p data-i18n="projects.next.text">
-        Natural next steps: calibrating a volatility surface from real market data, pricing barrier options,
-        or backtesting a volatility strategy (straddle, strangle).
-      </p>
-    </div>
-  </div>
 </section>
 
 <section id="calculator">
-  <div class="section-head"><span class="section-num">05</span><h2 data-i18n="calc.title">Live Pricing Calculator</h2><hr class="rule"></div>
+  <div class="section-head"><span class="section-num">06</span><h2 data-i18n="calc.title">Live Pricing Calculator</h2><hr class="rule"></div>
   <p style="color:var(--text-dim); font-size:15.5px; max-width:80ch; margin-top:-14px; margin-bottom:28px;" data-i18n="calc.intro">
     A live Black-Scholes calculator, running the same formulas as the Derivatives Pricing Toolkit above, directly in your browser.
   </p>
@@ -664,22 +678,6 @@
   </div>
 </section>
 
-<section id="skills">
-  <div class="section-head"><span class="section-num">06</span><h2 data-i18n="skills.title">Skills</h2><hr class="rule"></div>
-  <table class="blotter">
-    <thead>
-      <tr><th data-i18n="skills.col1">Area</th><th data-i18n="skills.col2">Detail</th><th data-i18n="skills.col3">Level</th></tr>
-    </thead>
-    <tbody>
-      <tr><td data-i18n="skills.r1a">FX/MM trading support</td><td data-i18n="skills.r1b">Transaction pricing, real-time Front Office support</td><td><span class="level-bar"><span class="level-fill" style="width:70%"></span></span></td></tr>
-      <tr><td data-i18n="skills.r2a">Derivatives pricing</td><td data-i18n="skills.r2b">Black-Scholes, Monte Carlo, binomial trees</td><td><span class="level-bar"><span class="level-fill" style="width:65%"></span></span></td></tr>
-      <tr><td data-i18n="skills.r3a">Credit analysis</td><td data-i18n="skills.r3b">Solvency, ratings, financial statement review</td><td><span class="level-bar"><span class="level-fill" style="width:70%"></span></span></td></tr>
-      <tr><td data-i18n="skills.r4a">Valuation</td><td data-i18n="skills.r4b">DCF, comparables, financial modelling</td><td><span class="level-bar"><span class="level-fill" style="width:65%"></span></span></td></tr>
-      <tr><td data-i18n="skills.r5a">Python / VBA</td><td data-i18n="skills.r5b">Automation, NumPy, Pandas, SciPy</td><td><span class="level-bar"><span class="level-fill" style="width:80%"></span></span></td></tr>
-    </tbody>
-  </table>
-</section>
-
 <section id="contact">
   <div class="contact-panel">
     <h2 data-i18n="contact.title">Let's talk</h2>
@@ -693,7 +691,7 @@
 </section>
 
 <footer>
-  <span data-i18n="footer.text">Built with Python, coffee, and an unhealthy obsession with Greeks.</span> © <span id="year"></span>
+  <span data-i18n="footer.text">Built with Python, coffee, and endless curiosity.</span> © <span id="year"></span>
 </footer>
 
 <script>
@@ -707,13 +705,6 @@ function closeNav(){
   document.getElementById('navRight').classList.remove('open');
 }
 
-// Terminal-style clock
-function tick(){
-  const now = new Date();
-  document.getElementById('clock').textContent = now.toLocaleTimeString('en-GB');
-}
-tick(); setInterval(tick, 1000);
-
 // Scrolling ticker
 const instruments = [
   ['CAC 40', '+0.42%', 'up'], ['STOXX 50', '-0.18%', 'down'], ['EUR/USD', '1.0842', 'up'],
@@ -723,39 +714,6 @@ const instruments = [
 const track = document.getElementById('tickerTrack');
 const row = instruments.map(([n,v,d]) => `<span class="${d}">${n} ${v}</span>`).join('');
 track.innerHTML = row + row; // doubled for the seamless loop
-
-// Simulated sparkline (geometric Brownian motion, purely decorative)
-const canvas = document.getElementById('sparkline');
-const ctx = canvas.getContext('2d');
-function resize(){
-  canvas.width = canvas.clientWidth * devicePixelRatio;
-  canvas.height = canvas.clientHeight * devicePixelRatio;
-}
-resize();
-window.addEventListener('resize', resize);
-
-let path = [100];
-for(let i=0;i<80;i++){
-  const shock = (Math.random()-0.5) * 2.2;
-  path.push(path[path.length-1] + shock);
-}
-
-function draw(){
-  const w = canvas.clientWidth, h = canvas.clientHeight;
-  ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
-  ctx.clearRect(0,0,w,h);
-  const min = Math.min(...path), max = Math.max(...path);
-  ctx.beginPath();
-  path.forEach((v,i) => {
-    const x = (i/(path.length-1)) * w;
-    const y = h - ((v-min)/(max-min || 1)) * (h-10) - 5;
-    i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
-  });
-  ctx.strokeStyle = '#15803d';
-  ctx.lineWidth = 1.6;
-  ctx.stroke();
-}
-draw();
 
 /* ================= i18n ================= */
 const translations = {
@@ -776,13 +734,13 @@ const translations = {
     "hero.panelSub": "Black-Scholes · 25.0% implied vol",
     "about.title": "About",
     "about.text": "Currently pursuing an <b style=\"color:var(--navy)\">MSc in Financial Markets and Investments</b> at <span style=\"color:var(--navy)\">SKEMA Business School</span> (ranked 2nd worldwide by the Financial Times), after a Bachelor's in Corporate Finance &amp; Financial Markets at SKEMA Sophia-Antipolis and an exchange year in China (Nanjing Audit School). <br><br> On the practical side: <b style=\"color:var(--navy)\">Middle Office Forex &amp; Money Market Trading Support</b> at Société Générale (real-time Front Office support, pricing vanilla and complex transactions, VBA automation), and <b style=\"color:var(--navy)\">Financial Analyst</b> at Banque de France (solvency analysis, SME credit ratings). That combination — desk work and credit analysis — is what pushed me to rebuild pricing models myself instead of treating them as a black box. <br><br> Looking for a <b style=\"color:var(--navy)\">6-month off-cycle internship in Financial Markets or Investment Banking</b> starting <span style=\"color:var(--navy)\">May 2027</span>.",
-    "about.li1k": "Languages (code)",
+    "about.li1k": "Tech Stack",
     "about.li2k": "Quant finance",
     "about.li3k": "Data",
     "about.li4k": "Finance",
     "about.li4v": "Modelling, valuation (DCF, comparables), credit",
     "about.li5k": "Languages",
-    "about.li5v": "FR (native), EN (C1), IT (B2), ZH (A2)",
+    "about.langFr": "Native",
     "exp.title": "Experience",
     "exp.sg.role": "Middle Office · Forex &amp; Money Market Trading Support",
     "exp.sg.li1": "Provided real-time support to the Front Office on Forex and Money Market operations",
@@ -844,7 +802,7 @@ const translations = {
     "skills.r5a": "Python / VBA", "skills.r5b": "Automation, NumPy, Pandas, SciPy",
     "contact.title": "Let's talk",
     "contact.text": "Open to a 6-month off-cycle internship in Financial Markets or Investment Banking starting May 2027.",
-    "footer.text": "Built with Python, coffee, and an unhealthy obsession with Greeks."
+    "footer.text": "Built with Python, coffee, and endless curiosity."
   },
   fr: {
     "nav.about": "À propos",
@@ -863,13 +821,13 @@ const translations = {
     "hero.panelSub": "Black-Scholes · vol implicite 25.0%",
     "about.title": "À propos",
     "about.text": "Actuellement en <b style=\"color:var(--navy)\">MSc Financial Markets and Investments</b> à <span style=\"color:var(--navy)\">SKEMA Business School</span> (classé 2ᵉ mondial par le Financial Times), après un Bachelor en Corporate Finance &amp; Financial Markets à SKEMA Sophia-Antipolis et une année d'échange en Chine (Nanjing Audit School). <br><br> Côté terrain : <b style=\"color:var(--navy)\">Middle Office Forex &amp; Money Market Trading Support</b> à la Société Générale (support Front Office en temps réel, pricing de transactions vanille et complexes, automatisation VBA), et <b style=\"color:var(--navy)\">analyste financier</b> à la Banque de France (analyse de solvabilité, notation crédit de PME). C'est cette double expérience — desk et analyse crédit — qui m'a donné envie de reconstruire moi-même les modèles de pricing plutôt que de les utiliser en boîte noire. <br><br> Je recherche un <b style=\"color:var(--navy)\">stage de césure de 6 mois en finance de marché ou investment banking</b> à partir de <span style=\"color:var(--navy)\">mai 2027</span>.",
-    "about.li1k": "Langages (code)",
+    "about.li1k": "Stack technique",
     "about.li2k": "Finance quant.",
     "about.li3k": "Data",
     "about.li4k": "Finance",
     "about.li4v": "Modélisation, valorisation (DCF, comparables), crédit",
     "about.li5k": "Langues",
-    "about.li5v": "FR (natif), EN (C1), IT (B2), ZH (A2)",
+    "about.langFr": "Natif",
     "exp.title": "Expérience",
     "exp.sg.role": "Middle Office · Forex &amp; Money Market Trading Support",
     "exp.sg.li1": "Support en temps réel au Front Office sur les opérations Forex et Money Market",
@@ -931,7 +889,7 @@ const translations = {
     "skills.r5a": "Python / VBA", "skills.r5b": "Automatisation, NumPy, Pandas, SciPy",
     "contact.title": "Discutons",
     "contact.text": "Ouvert à un stage de césure de 6 mois en finance de marché ou investment banking à partir de mai 2027.",
-    "footer.text": "Construit avec Python, café, et une obsession pour les Greeks."
+    "footer.text": "Construit avec Python, café, et une curiosité sans limite."
   }
 };
 
